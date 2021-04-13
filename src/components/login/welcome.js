@@ -79,38 +79,6 @@ function Welcome({handleLogout}){
     useEffect(() => {
         GetBooks();
     }, [])
-    // function getbooks(){
-    //     database.collection('books').get()
-    //       .then(snapshot => {
-    //         snapshot.docs.forEach(doc => {
-    //             let list = doc.data();
-    //             list = JSON.stringify(list);
-    //             setBooks(list);
-    //         });
-            
-    //       })
-          
-    //   }
-    //   function componentDidMount(){
-    //       getbooks()
-    //   }
-    console.log(setBooks)
-    
-    //   useEffect(() => {
-    //     database.collection('books').get()
-    //       .then(response => {
-    //         const book_list = [];
-    //         response.docs.forEach(document => {
-    //           const book_list = {
-    //             id: document.id,
-    //             ...document.data()
-    //           };
-    //           book_list.push(book_list);
-    //         });
-    //         setBooks(book_list);
-    //       })
-          
-    //   }, []);
     return(
         <div className="hero">
             <nav>
