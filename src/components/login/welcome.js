@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './welcome.css'
 import ShowBooks from './books';
+import {database} from '../../firebase';
 
 
-
-function Register({books, setBooks}){
+function Register({books, setBooks}, {getbooks}){
     function handleRegister(event){
         event.preventDefault();
         const bookname = event.target.elements.bookname.value;
@@ -68,9 +68,49 @@ function Register({books, setBooks}){
 }
 
 function Welcome({handleLogout}){
-    const [books, setBooks] = React.useState([
-        
-    ])
+    const [books, setBooks] = useState([]);
+    const GetBooks = async()=>{
+        const response = database.collection('books');
+        const data = await response.get()
+        data.docs.forEach(item=>{
+            setBooks([...books, item.data()])
+        })
+    }
+    useEffect(() => {
+        GetBooks();
+    }, [])
+    // function getbooks(){
+    //     database.collection('books').get()
+    //       .then(snapshot => {
+    //         snapshot.docs.forEach(doc => {
+    //             let list = doc.data();
+    //             list = JSON.stringify(list);
+    //             setBooks(list);
+    //         });
+            
+    //       })
+          
+    //   }
+    //   function componentDidMount(){
+    //       getbooks()
+    //   }
+    console.log(setBooks)
+    
+    //   useEffect(() => {
+    //     database.collection('books').get()
+    //       .then(response => {
+    //         const book_list = [];
+    //         response.docs.forEach(document => {
+    //           const book_list = {
+    //             id: document.id,
+    //             ...document.data()
+    //           };
+    //           book_list.push(book_list);
+    //         });
+    //         setBooks(book_list);
+    //       })
+          
+    //   }, []);
     return(
         <div className="hero">
             <nav>
