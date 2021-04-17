@@ -4,7 +4,8 @@ import ShowBooks from './books';
 import {database} from '../../firebase';
 
 
-function Register({books, setBooks}, {getbooks}){
+function Register(){
+    
     function handleRegister(event){
         event.preventDefault();
         const bookname = event.target.elements.bookname.value;
@@ -12,21 +13,10 @@ function Register({books, setBooks}, {getbooks}){
         const bookprice = event.target.elements.bookprice.value;
         const url = event.target.elements.url.value;
         const book = {bookname: bookname, bookauth: bookauth, bookprice: bookprice, url: url};
-        setBooks(prevBooks =>{
-            return prevBooks.concat(book)
-        })
+        database.collection('books').add(book);
         event.target.reset();
     }
     
-
-    // function Show(){
-    //     return(
-    //         <>
-    //             <ShowBooks books={books}/>
-    //         </>
-    //     );
-    // }
-
     return(
         <div className='body'>
             <div className="login-box" style={{marginLeft:5}}>
@@ -53,39 +43,34 @@ function Register({books, setBooks}, {getbooks}){
                     <button>Submit</button>
                 </form>
                 <br/>
-            
-                
             </div>
-            <div className='book-box' style={{marginTop:300}}>
-                <h2>List of Books</h2>
-                <ShowBooks books={books}/>
-            </div>
-        </div>
-
-        
-            
+        </div>   
     );
 }
 
 function Welcome({handleLogout}){
     const [books, setBooks] = useState([]);
-    const GetBooks = async()=>{
-        const response = database.collection('books');
-        const data = await response.get()
-        data.docs.forEach(item=>{
-            setBooks([...books, item.data()])
-        })
-    }
-    useEffect(() => {
-        GetBooks();
-    }, [])
+    // database.collection('books').get().then((snapshot) => {
+    //     snapshot.docs.forEach(doc => console.log(doc.data()))
+    // })
+    // const GetBooks = async()=>{
+    //     const response = database.collection('books');
+    //     const data = await response.get()
+    //     data.docs.forEach(item=>{
+    //         setBooks([...books, item.data()])
+    //     })
+    // }
+    // useEffect(() => {
+    //     GetBooks();
+    // }, [])
     return(
         <div className="hero">
             <nav>
                 <h2>Welcome</h2>
                 <button onClick={handleLogout}>Logout</button>
             </nav>
-            <Register books = {books} setBooks={setBooks}/>
+            <Register/>
+            <ShowBooks books={books} setBooks = {setBooks}/>
         </div>
         
     );
