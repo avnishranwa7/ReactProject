@@ -69,7 +69,7 @@ function Welcome({handleLogout}){
                 <h2>Welcome</h2>
                 <button onClick={handleLogout}>Logout</button>
             </nav>
-            <Register/>
+            <Register books = {books} setBooks = {setBooks}/>
             <ShowBooks books={books} setBooks = {setBooks}/>
         </div>
         

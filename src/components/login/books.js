@@ -1,24 +1,42 @@
 import './books.css';
 import './welcome.css'
 import {database} from '../../firebase';
+import React from 'react';
 import {useEffect} from 'react';
 import firebase from 'firebase';
 
+
+
 function ShowBooks({books, setBooks}){
     
-    // const fetchBooks=async()=>{
+    const fetchBooks=async()=>{
 
-    //     // const response = database.collection('books');
-    //     // const data = await response.get();
-    //     // data.docs.forEach(book => {
-    //     //     setBooks([book.data()])
-    //     // })
-    //   }
-      useEffect(() => {
-        database.collection('books').onSnapshot(snapshot => {
-            setBooks(snapshot.docs.map(doc => doc.data()))
-        })
-      }, [])
+        // const response = database.collection('books');
+        // const data = await response.get();
+        // data.docs.forEach(book => {
+        //     setBooks([book.data()])
+        // })
+      }
+    database.collection("books")
+    .get()
+    .then(querySnapshot => {
+    const data = querySnapshot.docs.map(doc => doc.data());
+    setBooks(data); // array of cities objects
+  });
+    
+    // const userRef = firebase.database().ref('books');
+    // userRef.on('value', (snapshot) => {
+    // snapshot.forEach(data => {
+    //     const dataVal = data.val()
+    //     setBooks.push({
+    //     bookname: dataVal.bookname,
+    //     bookauth: dataVal.bookauth,
+    //     bookprice: dataVal.bookprice,
+    //     url: dataVal.url
+    //     })
+    // })
+    // })
+    
       
       
     // const GetBooks = async()=>{

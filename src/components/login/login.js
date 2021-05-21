@@ -11,7 +11,7 @@ const Login = (props) =>{
       <p className="errormsg">{emailError}</p>
       <label>Password</label>
       <input type="password" autoFocus required value={password} onChange={(e) => setPassword(e.target.value)}/>
-      <p className="errormsg">{passwordError}</p>
+      <p className="errormsg" style={{color: "red"}}>{passwordError}</p>
       <div className="btnContainer">
         {hasAccount ? (
           <>
